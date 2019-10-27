@@ -109,7 +109,7 @@ public class UserLoginActivity extends AppCompatActivity {
             Intent homeIntent = new Intent(UserLoginActivity.this, StudentLandingPage.class);
             startActivity(homeIntent);
         }else{
-            Intent homeIntent = new Intent(UserLoginActivity.this, StudentLandingPage.class);
+            Intent homeIntent = new Intent(UserLoginActivity.this, TeacherLandingPage.class);
             startActivity(homeIntent);
         }
         finish();
