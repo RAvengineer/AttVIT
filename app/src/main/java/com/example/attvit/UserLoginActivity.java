@@ -53,7 +53,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
                 if(userDetails.getBoolean("isSignedIn",false)){
                     if(userDetails.getString("user_pwd","error").equals(user_pwd) &&
-                        userDetails.getString("user_id","12").equals(user_id)) {
+                        userDetails.getString("user_id","12").equalsIgnoreCase(user_id)) {
                         changeActivity(Objects.requireNonNull(userDetails.getString("user_prof", "dean")));
                         return;
                     }else{
