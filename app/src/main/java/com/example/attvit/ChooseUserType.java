@@ -38,6 +38,7 @@ public class ChooseUserType extends AppCompatActivity {
                 SharedPreferences userDetails = getSharedPreferences("UserDetails", MODE_PRIVATE);
                 SharedPreferences.Editor prefEditor = userDetails.edit();
                 prefEditor.putString("user_prof", "Teacher");
+                prefEditor.commit();
 
                 Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
                 startActivity(intent);
@@ -53,6 +54,7 @@ public class ChooseUserType extends AppCompatActivity {
                 SharedPreferences userDetails = getSharedPreferences("UserDetails", MODE_PRIVATE);
                 SharedPreferences.Editor prefEditor = userDetails.edit();
                 prefEditor.putString("user_prof", "Student");
+                prefEditor.commit();
 
                 Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
                 startActivity(intent);
