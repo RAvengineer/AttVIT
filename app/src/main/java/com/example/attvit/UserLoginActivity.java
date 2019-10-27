@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 public class UserLoginActivity extends AppCompatActivity {
 
     Button btnLogin;
@@ -49,9 +51,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
                 if(userDetails.getBoolean("isSignedIn",false)){
                     if(userDetails.getString("user_pwd","error").equals(user_pwd)) {
-                        Intent homeIntent = new Intent(UserLoginActivity.this, StudentLandingPage.class);
-                        startActivity(homeIntent);
-                        finish();
+                        changeActivity(Objects.requireNonNull(userDetails.getString("user_prof", "dean")));
                         return;
                     }else{
                         Toast.makeText(UserLoginActivity.this, "Password Invalid!", Toast.LENGTH_SHORT).show();
@@ -69,9 +69,7 @@ public class UserLoginActivity extends AppCompatActivity {
                 Log.d("user_pwd", userDetails.getString("user_pwd", "null"));
                 Log.d("isSignedIn", String.valueOf(userDetails.getBoolean("isSignedIn",false)));
 
-                Intent homeIntent=new Intent(UserLoginActivity.this,StudentLandingPage.class);
-                startActivity(homeIntent);
-                finish();
+                changeActivity(Objects.requireNonNull(userDetails.getString("user_prof", "dean")));
             }
         });
         // </editor-fold>
@@ -95,6 +93,19 @@ public class UserLoginActivity extends AppCompatActivity {
         String id = null;
         userDetails.getString("user_id",id);
         return(id.equals(user_id));
+    }
+    // </editor-fold>
+
+    // <editor-fold default="collapsed" desc="change Activity">
+    private void changeActivity(String prof){
+        if(prof.equalsIgnoreCase("Student")){
+            Intent homeIntent = new Intent(UserLoginActivity.this, StudentLandingPage.class);
+            startActivity(homeIntent);
+        }else{
+            Intent homeIntent = new Intent(UserLoginActivity.this, StudentLandingPage.class);
+            startActivity(homeIntent);
+        }
+        finish();
     }
     // </editor-fold>
 }

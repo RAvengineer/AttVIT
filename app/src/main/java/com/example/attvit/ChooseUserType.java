@@ -3,6 +3,7 @@ package com.example.attvit;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +11,7 @@ import android.widget.Button;
 import java.net.InetAddress;
 
 public class ChooseUserType extends AppCompatActivity {
-    Button btnTeacher, btnStudent, btnAdmin;
+    Button btnTeacher, btnStudent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,6 @@ public class ChooseUserType extends AppCompatActivity {
     private void initializeComponents(){
         btnTeacher = findViewById(R.id.btnTeacher);
         btnStudent = findViewById(R.id.btnStudent);
-        btnAdmin = findViewById(R.id.btnAdmin);
     }
     // </editor-fold>
 
@@ -35,7 +35,13 @@ public class ChooseUserType extends AppCompatActivity {
         btnTeacher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences userDetails = getSharedPreferences("UserDetails", MODE_PRIVATE);
+                SharedPreferences.Editor prefEditor = userDetails.edit();
+                prefEditor.putString("user_prof", "Teacher");
 
+                Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         // </editor-fold>
@@ -44,20 +50,17 @@ public class ChooseUserType extends AppCompatActivity {
         btnStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), StudentLandingPage.class);
+                SharedPreferences userDetails = getSharedPreferences("UserDetails", MODE_PRIVATE);
+                SharedPreferences.Editor prefEditor = userDetails.edit();
+                prefEditor.putString("user_prof", "Student");
+
+                Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         // </editor-fold>
 
-        // <editor-fold default="collapsed" desc="btnAdmin Click Listener">
-        btnAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        // </editor-fold>
 
     }
     // </editor-fold>
