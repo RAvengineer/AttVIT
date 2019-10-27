@@ -16,7 +16,7 @@ import java.util.Objects;
 public class UserLoginActivity extends AppCompatActivity {
 
     Button btnLogin;
-    EditText etLoginID, etPassword;
+    EditText etName, etLoginID, etPassword;
 
     String signedIn = "false";
 
@@ -33,6 +33,7 @@ public class UserLoginActivity extends AppCompatActivity {
     // <editor-fold default="collapsed" desc="initializeComponents">
     private void initializeComponents() {
         btnLogin = findViewById(R.id.btnLogin);
+        etName = findViewById(R.id.etName);
         etLoginID = findViewById(R.id.etLoginID);
         etPassword = findViewById(R.id.etPassword);
     }
@@ -44,6 +45,7 @@ public class UserLoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String user_name = etName.getText().toString();
                 String user_id = etLoginID.getText().toString();
                 String user_pwd = etPassword.getText().toString();
 
@@ -61,11 +63,13 @@ public class UserLoginActivity extends AppCompatActivity {
                 }
 
                 SharedPreferences.Editor prefEditor = userDetails.edit();
+                prefEditor.putString("user_name", user_name);
                 prefEditor.putString("user_id", user_id);
                 prefEditor.putString("user_pwd", user_pwd);
                 prefEditor.putBoolean("isSignedIn",true);
                 prefEditor.commit();
 
+                Log.d("user_name", userDetails.getString("user_name", "null"));
                 Log.d("user_id", userDetails.getString("user_id", "null"));
                 Log.d("user_pwd", userDetails.getString("user_pwd", "null"));
                 Log.d("isSignedIn", String.valueOf(userDetails.getBoolean("isSignedIn",false)));
@@ -84,6 +88,8 @@ public class UserLoginActivity extends AppCompatActivity {
             String temp = "";
             temp = userDetails.getString("user_id","Error!");
             etLoginID.setText(temp);
+            temp = userDetails.getString("user_name","Error!");
+            etName.setText(temp);
         }
     }
     // </editor-fold>
