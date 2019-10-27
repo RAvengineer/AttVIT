@@ -50,11 +50,12 @@ public class UserLoginActivity extends AppCompatActivity {
                 SharedPreferences userDetails = getSharedPreferences("UserDetails", MODE_PRIVATE);
 
                 if(userDetails.getBoolean("isSignedIn",false)){
-                    if(userDetails.getString("user_pwd","error").equals(user_pwd)) {
+                    if(userDetails.getString("user_pwd","error").equals(user_pwd) &&
+                        userDetails.getString("user_id","12").equals(user_id)) {
                         changeActivity(Objects.requireNonNull(userDetails.getString("user_prof", "dean")));
                         return;
                     }else{
-                        Toast.makeText(UserLoginActivity.this, "Password Invalid!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserLoginActivity.this, "Invalid Credentials !", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
