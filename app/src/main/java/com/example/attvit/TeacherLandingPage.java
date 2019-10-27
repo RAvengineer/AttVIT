@@ -9,18 +9,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class StudentLandingPage extends AppCompatActivity {
-    TextView tvName, tvRegNo;
-    Button btnGA, btnVA, btnCPwd;
+public class TeacherLandingPage extends AppCompatActivity {
+
+    TextView tvName, tvEmpNo;
+    Button btnTA, btnVA, btnMA, btnCPwd;
 
     public SharedPreferences userDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_landing_page);
+        setContentView(R.layout.activity_teacher_landing_page);
 
-        userDetails = getSharedPreferences("UserDetails",MODE_PRIVATE);
         initializeComponents();
         executeListeners();
     }
@@ -29,12 +29,13 @@ public class StudentLandingPage extends AppCompatActivity {
     private void initializeComponents() {
         tvName = findViewById(R.id.tvName);
         tvName.setText(userDetails.getString("user_name","Doctor Strange"));
-        tvRegNo = findViewById(R.id.tvEno);
-        tvRegNo.setText(userDetails.getString("user_id","14000605"));
+        tvEmpNo = findViewById(R.id.tvEno);
+        tvEmpNo.setText(userDetails.getString("user_id","14000605"));
 
         btnCPwd = findViewById(R.id.btnChangePwd);
-        btnGA = findViewById(R.id.btnTakeAttd);
+        btnTA = findViewById(R.id.btnTakeAttd);
         btnVA = findViewById(R.id.btnViewAttd);
+        btnMA = findViewById(R.id.btnModifyAttd);
     }
     // </editor-fold>
 
@@ -54,7 +55,7 @@ public class StudentLandingPage extends AppCompatActivity {
             }
         });
 
-        btnGA.setOnClickListener(new View.OnClickListener() {
+        btnTA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -68,7 +69,13 @@ public class StudentLandingPage extends AppCompatActivity {
             }
         });
 
+        btnMA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
     // </editor-fold>
-
 }
