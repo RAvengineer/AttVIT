@@ -1,7 +1,5 @@
 package com.example.attvit;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -14,12 +12,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.attvit.util.ConnectionUtil;
 
 public class TeacherLandingPage extends AppCompatActivity {
 
     TextView tvName, tvEmpNo;
-    Button btnTA, btnVA, btnMA, btnCPwd, btnAddClass;
+    Button btnTA, btnVA, btnMA, btnCPwd, btnAddClass, btnBack;
 
     public SharedPreferences userDetails;
 
@@ -36,10 +36,20 @@ public class TeacherLandingPage extends AppCompatActivity {
         wifi = new ConnectionUtil();
         wifi.wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-
         initializeComponents();
         executeListeners();
+
+
     }
+
+    // <editor-fold default="collapsed" desc="Turn Off WiFi when app closed">
+
+    @Override
+    public void onBackPressed() {
+        wifi.disableWifi();
+        finish();
+    }
+    // </editor-fold>
 
     // <editor-fold default="collapsed" desc="initializeComponents">
     private void initializeComponents() {

@@ -104,6 +104,14 @@ public class WifiP2P_Socket extends AppCompatActivity {
                     Log.d("Received", tempMsg);
 
                     tMessage.setText(tempMsg);
+                    // <editor-fold default="collapsed" desc="Give him a break of 1500 millis">
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    // </editor-fold>
+                    wifi.disableWifi();
                     break;
             }
             return true;
@@ -199,18 +207,22 @@ public class WifiP2P_Socket extends AppCompatActivity {
                 peers.clear();
                 peers.addAll(peerList.getDeviceList());
 
+                Log.d("Listening for Peers", String.valueOf(peerList.getDeviceList().size()));
                 deviceNameArray = new String[peerList.getDeviceList().size()];
                 deviceArray = new WifiP2pDevice[peerList.getDeviceList().size()];
+
 
                 int index = 0;
                 for (WifiP2pDevice device : peerList.getDeviceList()) {
                     deviceNameArray[index] = device.deviceName;
+                    Log.d("Device", device.deviceName);
                     deviceArray[index] = device;
                     index++;
                 }
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(WifiP2P_Socket.this, android.R.layout.simple_list_item_1, deviceNameArray);
                 lstvDevices.setAdapter(adapter);
+
             }
 
             if (peers.size() == 0) {

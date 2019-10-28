@@ -1,7 +1,5 @@
 package com.example.attvit;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -24,6 +22,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.attvit.Classes.TeacherWifiDirectBroadcastReceiver;
 import com.example.attvit.util.ConnectionUtil;
@@ -104,6 +104,22 @@ public class WPSTeacherActivity extends AppCompatActivity {
                     Log.d("Received", tempMsg);
 
                     tMessage.setText(tempMsg);
+                    // <editor-fold default="collapsed" desc="Give him a break of 1500 millis">
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    // </editor-fold>
+                    wifi.disableWifi();
+                    // <editor-fold default="collapsed" desc="Give him a break of 1500 millis">
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    // </editor-fold>
+                    wifi.enableWifi();
                     break;
             }
             return true;
