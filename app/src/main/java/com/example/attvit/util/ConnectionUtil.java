@@ -10,4 +10,13 @@ public class ConnectionUtil {
             wifiManager.setWifiEnabled(true);
     }
 
+    public void disableWifi() {
+        if (wifiManager.isWifiEnabled())
+            wifiManager.setWifiEnabled(false);
+    }
+
+    public boolean isEnabled() {
+        return wifiManager.isWifiEnabled();
+    }
+
 }

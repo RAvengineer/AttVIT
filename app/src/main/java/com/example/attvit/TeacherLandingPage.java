@@ -2,13 +2,19 @@ package com.example.attvit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.attvit.util.ConnectionUtil;
 
 public class TeacherLandingPage extends AppCompatActivity {
 
@@ -17,12 +23,17 @@ public class TeacherLandingPage extends AppCompatActivity {
 
     public SharedPreferences userDetails;
 
+    public ConnectionUtil wifi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_landing_page);
 
         userDetails = getSharedPreferences("UserDetails",MODE_PRIVATE);
+
+        wifi = new ConnectionUtil();
+        wifi.wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         initializeComponents();
         executeListeners();
@@ -38,6 +49,7 @@ public class TeacherLandingPage extends AppCompatActivity {
 
         btnCPwd = findViewById(R.id.btnChangePwd);
         btnTA = findViewById(R.id.btnTakeAttd);
+        btnTA.setBackgroundColor(Color.RED);
         btnVA = findViewById(R.id.btnViewAttd);
         btnMA = findViewById(R.id.btnModifyAttd);
         btnAddClass = findViewById(R.id.btnAddClass);
@@ -61,10 +73,18 @@ public class TeacherLandingPage extends AppCompatActivity {
         });
 
         btnTA.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), WifiP2P_Socket.class);
-                startActivity(intent);
+                if (wifi.isEnabled()) {
+                    btnTA.setBackgroundColor(Color.RED);
+                    btnTA.setText("Take Attendance");
+                    wifi.disableWifi();
+                } else {
+                    btnTA.setBackgroundColor(Color.GREEN);
+                    btnTA.setText("Taking...");
+                    wifi.enableWifi();
+                }
             }
         });
 

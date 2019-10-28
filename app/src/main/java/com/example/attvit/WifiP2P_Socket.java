@@ -64,6 +64,8 @@ public class WifiP2P_Socket extends AppCompatActivity {
     // Shared Preferences
     SharedPreferences userDetails;
 
+    public String receivedMsg = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +107,7 @@ public class WifiP2P_Socket extends AppCompatActivity {
                     Log.d("Received", tempMsg);
 
                     tMessage.setText(tempMsg);
+                    receivedMsg = tempMsg;
                     break;
             }
             return true;
