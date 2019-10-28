@@ -63,7 +63,8 @@ public class TeacherLandingPage extends AppCompatActivity {
         btnTA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getApplicationContext(), WifiP2P_Socket.class);
+                startActivity(intent);
             }
         });
 
