@@ -25,6 +25,7 @@ public class TeacherLandingPage extends AppCompatActivity {
 
     public ConnectionUtil wifi;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,7 @@ public class TeacherLandingPage extends AppCompatActivity {
 
         wifi = new ConnectionUtil();
         wifi.wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
 
         initializeComponents();
         executeListeners();
@@ -84,6 +86,8 @@ public class TeacherLandingPage extends AppCompatActivity {
                     btnTA.setBackgroundColor(Color.GREEN);
                     btnTA.setText("Taking...");
                     wifi.enableWifi();
+                    Intent intent = new Intent(getApplicationContext(), WPSTeacherActivity.class);
+                    startActivity(intent);
                 }
             }
         });

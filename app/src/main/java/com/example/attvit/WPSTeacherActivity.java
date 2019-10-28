@@ -1,5 +1,7 @@
 package com.example.attvit;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,9 +25,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.attvit.Classes.WifiDirectBroadcastReceiver;
+import com.example.attvit.Classes.TeacherWifiDirectBroadcastReceiver;
 import com.example.attvit.util.ConnectionUtil;
 
 import java.io.IOException;
@@ -38,7 +38,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WifiP2P_Socket extends AppCompatActivity {
+public class WPSTeacherActivity extends AppCompatActivity {
+
     public Button bDiscover, bSendMessage;
     public ListView lstvDevices;
     public TextView tConnectionStatus, tMessage;
@@ -67,7 +68,7 @@ public class WifiP2P_Socket extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wifi_p2_p__socket);
+        setContentView(R.layout.activity_wpsteacher);
 
         userDetails = getSharedPreferences("UserDetails", MODE_PRIVATE);
         initialize();
@@ -84,7 +85,6 @@ public class WifiP2P_Socket extends AppCompatActivity {
 
         execListeners();
     }
-
 
 
     // <editor-fold desc="Video No.: 008 Handler">
@@ -123,7 +123,7 @@ public class WifiP2P_Socket extends AppCompatActivity {
         manager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
         channel = manager.initialize(this, getMainLooper(), null);
 
-        receiver = new WifiDirectBroadcastReceiver(manager, channel, this);
+        receiver = new TeacherWifiDirectBroadcastReceiver(manager, channel, this);
 
         intentFilter = new IntentFilter();
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
@@ -169,12 +169,12 @@ public class WifiP2P_Socket extends AppCompatActivity {
                 manager.connect(channel, config, new WifiP2pManager.ActionListener() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(WifiP2P_Socket.this, "Connected to " + device.deviceName, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Connected to " + device.deviceName, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(int reason) {
-                        Toast.makeText(WifiP2P_Socket.this, "Not Connected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Not Connected", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -209,12 +209,12 @@ public class WifiP2P_Socket extends AppCompatActivity {
                     index++;
                 }
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(WifiP2P_Socket.this, android.R.layout.simple_list_item_1, deviceNameArray);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(WPSTeacherActivity.this, android.R.layout.simple_list_item_1, deviceNameArray);
                 lstvDevices.setAdapter(adapter);
             }
 
             if (peers.size() == 0) {
-                Toast.makeText(WifiP2P_Socket.this, "No devices found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(WPSTeacherActivity.this, "No devices found", Toast.LENGTH_SHORT).show();
             }
 
 
