@@ -128,6 +128,26 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
     // </editor-fold>
 
+    // <editor-fold default="collapsed" desc="getDates">
+    public String[] getDates(String table_name) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor dbCursor;
+        dbCursor = db.rawQuery("SELECT Date FROM " + table_name, null);
+
+        String[] res = new String[dbCursor.getCount() + 1];
+        int count = 1;
+        res[0] = "Choose Slot";
+        for (dbCursor.moveToFirst(); !dbCursor.isAfterLast(); dbCursor.moveToNext()) {
+            Log.d("Dates:", dbCursor.getString(0));
+            res[count++] = dbCursor.getString(0);
+        }
+        /*for(int i = 0; i< dbCursor.getCount(); i++)
+            Log.d("Dates:",dbCursor.getString(i));*/
+        return res;
+    }
+    // </editor-fold>
+
     //  Cursor is an interface that provides random read-write access to the result
     //  set returned by a DATABASE query !
 
