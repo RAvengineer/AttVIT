@@ -17,7 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WPSTeacherActivity"></activity>
+        <activity android:name=".TeacherViewAttdBySlotActivity"></activity>
+        <activity android:name=".TeacherViewAttdActivity" />
+        <activity android:name=".WPSTeacherActivity" />
         <activity android:name=".WifiP2P_Socket" />
         <activity android:name=".AddClassActivity" />
         <activity android:name=".TeacherLandingPage" />
