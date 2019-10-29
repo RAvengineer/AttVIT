@@ -194,6 +194,8 @@ public class WifiP2P_Socket extends AppCompatActivity {
             public void onClick(View v) {
                 String msg = userDetails.getString("user_id", "-1");
                 sendReceive.write(msg.getBytes());
+                wifi.disableWifi();
+                finish();
             }
         });
     }

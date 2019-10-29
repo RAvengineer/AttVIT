@@ -22,8 +22,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public SQLiteDatabase db;
 
 
-
-
     public DatabaseHelper(Context context) {
 
         super(context, DATABASE_NAME, null , 1);
@@ -46,7 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-
+    // <editor-fold default="collapsed" desc="insert Data">
     public boolean insertData(String table, String[] value) {
 
         //CREATE DATABASE AND TABLE
@@ -100,6 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         return result != -1;
     }
+    // </editor-fold>
 
     // <editor-fold default="collapsed" desc="create Database">
     public boolean createDatabase(String TABLE_NAME, String[] COL) {
