@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.attvit.Classes.TeacherWifiDirectBroadcastReceiver;
+import com.example.attvit.DatabaseHelper.DatabaseHelper;
 import com.example.attvit.util.ConnectionUtil;
 
 import java.io.IOException;
@@ -43,6 +45,7 @@ public class WPSTeacherActivity extends AppCompatActivity {
     public Button bDiscover, bSendMessage;
     public ListView lstvDevices;
     public TextView tConnectionStatus, tMessage;
+    public EditText etSlot;
     public ConnectionUtil wifi = new ConnectionUtil();
 
     WifiP2pManager manager;
@@ -63,6 +66,10 @@ public class WPSTeacherActivity extends AppCompatActivity {
 
     // Shared Preferences
     SharedPreferences userDetails;
+
+    // For DataBase
+    public String[] studentsPresent = new String[1];
+    int count = 0;
 
 
     @Override
@@ -86,6 +93,22 @@ public class WPSTeacherActivity extends AppCompatActivity {
         execListeners();
     }
 
+    // <editor-fold default="collapsed" desc="Add to Database">
+
+    @Override
+    public void onBackPressed() {
+        String tableName = etSlot.getText().toString();
+        DatabaseHelper myDb = new DatabaseHelper(this);
+        boolean isCreated = myDb.insertData(tableName, studentsPresent);
+        if (isCreated) {
+            Toast.makeText(getApplicationContext(), "Attendance Added", Toast.LENGTH_LONG).show();
+            finish();
+        } else
+            Toast.makeText(getApplicationContext(), "Try Again!", Toast.LENGTH_LONG).show();
+
+
+    }
+    // </editor-fold>
 
     // <editor-fold desc="Video No.: 008 Handler">
     // Video No.: 008
@@ -102,6 +125,8 @@ public class WPSTeacherActivity extends AppCompatActivity {
 //                        tempMsg = new String(readBuff, "UTF-8");
 
                     Log.d("Received", tempMsg);
+                    studentsPresent[count++] = tempMsg;
+
 
                     tMessage.setText(tempMsg);
                     // <editor-fold default="collapsed" desc="Give him a break of 1500 millis">
@@ -135,6 +160,7 @@ public class WPSTeacherActivity extends AppCompatActivity {
         lstvDevices = findViewById(R.id.lvDevices);
         tConnectionStatus = findViewById(R.id.tvConnectionStatus);
         tMessage = findViewById(R.id.tvMessage);
+        etSlot = findViewById(R.id.etSlot);
 
         manager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
         channel = manager.initialize(this, getMainLooper(), null);
@@ -208,6 +234,8 @@ public class WPSTeacherActivity extends AppCompatActivity {
 
     // </editor-fold>
 
+    // <editor-fold default="collapsed" desc="peerLisListener">
+
     public WifiP2pManager.PeerListListener peerListListener = new WifiP2pManager.PeerListListener() {
         @Override
         public void onPeersAvailable(WifiP2pDeviceList peerList) {
@@ -236,6 +264,9 @@ public class WPSTeacherActivity extends AppCompatActivity {
 
         }
     };
+    // </editor-fold>
+
+    // <editor-fold default="collapsed" desc="connectionInfoListener">
 
     public WifiP2pManager.ConnectionInfoListener connectionInfoListener = new WifiP2pManager.ConnectionInfoListener() {
         @SuppressLint("SetTextI18n")
@@ -259,6 +290,7 @@ public class WPSTeacherActivity extends AppCompatActivity {
 
         }
     };
+    // </editor-fold>
 
     @Override
     protected void onResume() {

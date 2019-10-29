@@ -1,13 +1,13 @@
 package com.example.attvit;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.attvit.DatabaseHelper.DatabaseHelper;
 
@@ -68,7 +68,7 @@ public class AddClassActivity extends AppCompatActivity {
                     String s = tableName.getText().toString();
                     myDb.TABLE_NAME = s;
 
-                    boolean isCreated = myDb.insertData( s, editCol );
+                    boolean isCreated = myDb.createDatabase(s, editCol);
 
                     if(isCreated) {
                         Toast.makeText(AddClassActivity.this,"DataBase Created",Toast.LENGTH_LONG).show();
