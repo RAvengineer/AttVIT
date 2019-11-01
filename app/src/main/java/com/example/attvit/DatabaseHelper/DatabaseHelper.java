@@ -19,7 +19,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static   String DATABASE_NAME ="student.db";
     public String TABLE_NAME ;
     public String COL[] = new String[4];
-    public SQLiteDatabase db;
 
 
     public DatabaseHelper(Context context) {
@@ -32,9 +31,19 @@ public class DatabaseHelper extends SQLiteOpenHelper{
      *
      * */
     @Override
-    public void onCreate(SQLiteDatabase pdb) {
-        db = pdb;
-        createDatabase(TABLE_NAME, COL);
+    public void onCreate(SQLiteDatabase db) {
+        //IT TAKES QUERY WHATEVER WE PASS
+        String s = " ( " + COL[0] + " TEXT PRIMARY KEY , ";
+
+        int i;
+
+        for (i = 1; i < COL.length - 1; i++) {
+
+            s = s + COL[i] + " TEXT , ";
+
+        }
+        s = s + COL[i] + " TEXT ) ";
+        db.execSQL("create table IF NOT EXISTS " + TABLE_NAME + s);
 
     }
 
@@ -101,8 +110,16 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     // </editor-fold>
 
     // <editor-fold default="collapsed" desc="create Database">
-    public boolean createDatabase(String TABLE_NAME, String[] COL) {
-        //IT TAKES QUERY WHATEVER WE PASS
+    public boolean createDatabase(String table, String[] value) {
+        //CREATE DATABASE AND TABLE
+        TABLE_NAME = table;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        //3 args -> table name, null, contentValues
+        // returns -1 if some problem otherwise row number !
+
         String s = " ( " + COL[0] + " TEXT PRIMARY KEY , ";
 
         int i;
@@ -114,8 +131,35 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
         s = s + "col" + COL[i] + " TEXT ) ";
         db.execSQL("create table IF NOT EXISTS " + TABLE_NAME + s);
+
+
+        /*String[] c = new String[COL.length];
+        for (i = 0; i < COL.length; i++)
+            c[i] = "A";
+
+        //1st col name ,  2nd value
+        Date currentTime = Calendar.getInstance().getTime();
+        contentValues.put(COL[0], currentTime.toString());
+        Log.d("value Length", "" + (value.length));
+        for (i = 0; i < value.length; i++) {
+            for (int j = 1; j < COL.length; j++) {
+                if (COL[j].equalsIgnoreCase("col" + value[i])) {
+                    c[j] = "P";
+                    break;
+                }
+            }
+            Log.d("Student", value[i]);
+        }
+
+
+        for (i = 1; i < COL.length; i++) {
+            Log.d("Attendance", COL[i] + " " + c[i]);
+            contentValues.put(COL[i], c[i]);
+        }
+
+        long result =  db.insert(TABLE_NAME , null , contentValues);*/
+
         return true;
-        //db.execSQL("create table "+TABLE_NAME+" (ID TEXT PRIMARY KEY , NAME TEXT , SURNAME TEXT ,MARKS TEXT) ");
     }
     // </editor-fold>
 

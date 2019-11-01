@@ -63,6 +63,7 @@ public class AddClassActivity extends AppCompatActivity {
                 public void onClick(View view) {
 
                     myDb.COL[0] = "Date";
+                    editCol[0] = "Date";
                     for(int i=1 ; i < editCol.length ; i++)
                         myDb.COL[i] = editCol[i];
                     String s = tableName.getText().toString();
