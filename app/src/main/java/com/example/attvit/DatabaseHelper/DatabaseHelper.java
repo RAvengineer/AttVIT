@@ -17,7 +17,7 @@ import java.util.Date;
 public class DatabaseHelper extends SQLiteOpenHelper{
 
     public static   String DATABASE_NAME ="student.db";
-    public String TABLE_NAME ;
+    public String TABLE_NAME ,stu_table = "stu_table";
     public String COL[] = new String[4];
 
 
@@ -43,7 +43,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         }
         s = s + COL[i] + " TEXT ) ";
+        if(COL[1]!=null)
         db.execSQL("create table IF NOT EXISTS " + TABLE_NAME + s);
+        db.execSQL("create table  IF NOT EXISTS stu_table (datetime TEXT PRIMARY KEY);");
 
     }
 
@@ -111,6 +113,43 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return result != -1;
     }
     // </editor-fold>
+
+
+    // <editor-fold default="collapsed" desc="Insert Data For Students">
+    public boolean insertSData() {
+
+        //CREATE DATABASE AND TABLE
+
+        // table name stu_table  column name datetime
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        Date currentTime = Calendar.getInstance().getTime();
+        contentValues.put("datetime", currentTime.toString());
+
+        long result = db.insert("stu_table", null, contentValues);
+
+        return result != -1;
+
+    }
+
+    public Cursor getSDates(){
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor dbCursor;
+        dbCursor = db.rawQuery("SELECT datetime FROM stu_table" , null);
+
+        /*String[] res = new String[dbCursor.getCount() + 1];
+        int count = 0;
+        for (dbCursor.moveToFirst(); !dbCursor.isAfterLast(); dbCursor.moveToNext()) {
+            Log.d("Dates for student: ", dbCursor.getString(0));
+            res[count++] = dbCursor.getString(0);
+        }*/
+
+        return dbCursor;
+    }
+
+    // </editor-fold>
+
 
     // <editor-fold default="collapsed" desc="create Database">
     public boolean createDatabase(String table, String[] value) {
