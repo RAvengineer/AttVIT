@@ -71,11 +71,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         int i;
 
         for( i = 1 ;i < COL.length -1 ; i++){
-
-            s = s + "col" + COL[i] + " TEXT , ";
+            Log.d("COL[i]", COL[i]);
+//            s = s + "col" + COL[i] + " TEXT , ";
+            s = s + COL[i] + " TEXT , ";
 
         }
-        s = s + "col" + COL[i] + " TEXT ) ";
+//        s = s + "col" + COL[i] + " TEXT ) ";
+        s = s + COL[i] + " TEXT ) ";
         db.execSQL("create table IF NOT EXISTS " + TABLE_NAME + s );
 
 
@@ -89,7 +91,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         Log.d("value Length", "" + (value.length));
         for (i = 0; i < value.length; i++) {
             for (int j = 1; j < COL.length; j++) {
-                if (COL[j].equalsIgnoreCase("col" + value[i])) {
+//                if (COL[j].equalsIgnoreCase("col" + value[i])) {
+                if (COL[j].equalsIgnoreCase(value[i])) {
                     c[j] = "P";
                     break;
                 }
@@ -126,10 +129,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         for (i = 1; i < COL.length - 1; i++) {
 
-            s = s + "col" + COL[i] + " TEXT , ";
+//            s = s + "col" + COL[i] + " TEXT , ";
+            s = s + COL[i] + " TEXT , ";
 
         }
-        s = s + "col" + COL[i] + " TEXT ) ";
+//        s = s + "col" + COL[i] + " TEXT ) ";
+        s = s + COL[i] + " TEXT ) ";
         db.execSQL("create table IF NOT EXISTS " + TABLE_NAME + s);
 
 

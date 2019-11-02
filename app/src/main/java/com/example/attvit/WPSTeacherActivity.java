@@ -25,7 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+//import android.support.v7.app.AppCompatActivity;
 import com.example.attvit.Classes.TeacherWifiDirectBroadcastReceiver;
 import com.example.attvit.DatabaseHelper.DatabaseHelper;
 import com.example.attvit.util.ConnectionUtil;
@@ -65,7 +65,7 @@ public class WPSTeacherActivity extends AppCompatActivity {
     // ***************
 
     // Shared Preferences
-    SharedPreferences userDetails;
+    public SharedPreferences userDetails;
 
     // For DataBase
     public String[] studentsPresent = new String[1];

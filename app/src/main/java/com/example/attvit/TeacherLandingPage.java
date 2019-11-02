@@ -55,6 +55,7 @@ public class TeacherLandingPage extends AppCompatActivity {
     private void initializeComponents() {
         tvName = findViewById(R.id.tvName);
         Log.d("User name Teacher",userDetails.getString("user_name","Doctor Strange"));
+        tvName.setText(userDetails.getString("user_name", "Doctor Strange"));
         tvEmpNo = findViewById(R.id.tvEno);
         tvEmpNo.setText(userDetails.getString("user_id","14000605"));
 

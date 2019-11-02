@@ -61,7 +61,7 @@ public class WifiP2P_Socket extends AppCompatActivity {
     // ***************
 
     // Shared Preferences
-    SharedPreferences userDetails;
+    public SharedPreferences userDetails;
 
 
     @Override
@@ -193,6 +193,10 @@ public class WifiP2P_Socket extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String msg = userDetails.getString("user_id", "-1");
+
+                Log.d("Message from Student", msg);
+                assert msg != null;
+
                 sendReceive.write(msg.getBytes());
                 wifi.disableWifi();
                 finish();
