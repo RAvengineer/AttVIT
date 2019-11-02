@@ -26,6 +26,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.attvit.Classes.WifiDirectBroadcastReceiver;
+import com.example.attvit.DatabaseHelper.DatabaseHelper;
 import com.example.attvit.util.ConnectionUtil;
 
 import java.io.IOException;
@@ -195,11 +196,24 @@ public class WifiP2P_Socket extends AppCompatActivity {
                 String msg = userDetails.getString("user_id", "-1");
                 sendReceive.write(msg.getBytes());
                 wifi.disableWifi();
-                finish();
+                addDateToDatabase();
+
             }
         });
     }
 
+
+    // <editor-fold default="collapsed" desc="Add to database">
+    public void addDateToDatabase(){
+
+        DatabaseHelper myDb = new DatabaseHelper(this);
+        boolean isCreated = myDb.insertSData();
+        if (isCreated) {
+            Toast.makeText(getApplicationContext(), "Attendance Added", Toast.LENGTH_LONG).show();
+            finish();
+        } else
+            Toast.makeText(getApplicationContext(), "Try Again!", Toast.LENGTH_LONG).show();
+    }
     // </editor-fold>
 
     public WifiP2pManager.PeerListListener peerListListener = new WifiP2pManager.PeerListListener() {
