@@ -205,6 +205,7 @@ public class WifiP2P_Socket extends AppCompatActivity {
             }
         });
     }
+    // </editor-fold>
 
 
     // <editor-fold default="collapsed" desc="Add to database">
