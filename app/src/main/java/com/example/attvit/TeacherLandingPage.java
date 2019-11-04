@@ -114,6 +114,8 @@ public class TeacherLandingPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(getApplicationContext(), TeacherModifyAttdBySlot.class);
+                startActivity(intent);
             }
         });
         btnAddClass.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +123,6 @@ public class TeacherLandingPage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),AddClassActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 

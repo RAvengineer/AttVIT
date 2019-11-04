@@ -238,7 +238,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     // <editor-fold default="collapsed" desc="getAttendance">
     @SuppressLint("Recycle")
-    public String[] getAttendance(String slot, String timestamp) {
+    public String[] getAttendance(String slot, String timestamp){
         String table_name = slot, date = timestamp;
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -266,18 +266,23 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from "+TABLE_NAME,null);
         return res;
-    }
-
-    public  boolean updateData(String id , String name ,String surname , String marks){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1,id);
-        contentValues.put(COL_2,name);
-        contentValues.put(COL_3,surname);
-        contentValues.put(COL_4,marks);
-        db.update(TABLE_NAME,contentValues,"id = ?",new String[] { id });
-        return  true;
     }*/
+
+    public  boolean updateData(String slot,String reg,String date){
+
+        Log.e("Date :" ,date);
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues newValues = new ContentValues();
+        newValues.put(reg, "P");
+
+        final int update = db.update(slot, newValues, "Date = '"+date+"'" , null);
+
+        Log.e("Query :" ,""+update);
+
+
+        return  true;
+    }
 
 }
 

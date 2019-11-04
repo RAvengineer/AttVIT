@@ -25,7 +25,7 @@ public class TeacherViewAttdBySlotActivity extends AppCompatActivity {
         Intent getData = getIntent();
         slot = getData.getStringExtra("slot");
         date = getData.getStringExtra("date");
-        setTitle(slot + " " + date.substring(0, 19));
+        setTitle(slot + " " + date.substring(0,19));
         Toast.makeText(this, slot + " " + date, Toast.LENGTH_SHORT).show();
 
         initializeComponents();
@@ -33,26 +33,26 @@ public class TeacherViewAttdBySlotActivity extends AppCompatActivity {
     }
 
     // <editor-fold default="collapsed" desc="initializeComponents">
-    public void initializeComponents() {
+    public void initializeComponents(){
         lvAttendance = findViewById(R.id.lvAttendance);
     }
     // </editor-fold>
 
     // <editor-fold default="collapsed" desc="Add data in ListView">
-    public void addDataInListView() {
+    public void addDataInListView(){
         DatabaseHelper mydb = new DatabaseHelper(this);
 
-        String[] studentsAttnd = mydb.getAttendance(slot, date);
+        String[] studentsAttnd = mydb.getAttendance(slot,date);
         String[] allStudents = mydb.getColumnNames(slot);
 
         int countPresent = 0;
-        for (int i = 1; i < studentsAttnd.length; i++)
-            if (studentsAttnd[i].equals("P"))
+        for(int i=1;i<studentsAttnd.length;i++)
+            if(studentsAttnd[i].equals("P"))
                 countPresent++;
         String[] studentsPresent = new String[countPresent];
         countPresent = 0;
-        for (int i = 1; i < studentsAttnd.length; i++)
-            if (studentsAttnd[i].equals("P")) {
+        for(int i=1;i<studentsAttnd.length;i++)
+            if(studentsAttnd[i].equals("P")) {
                 studentsPresent[countPresent++] = allStudents[i];
                 Log.d("Student Added", allStudents[i]);
             }
